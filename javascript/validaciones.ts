@@ -55,11 +55,11 @@ function  VerificarValidaciones():boolean
 }
 function ValidarCamposVacios(ingresado:string):boolean
 {
-    if(ingresado == null || ingresado.match(/^\s*$/) !== null)
+    if(ingresado != "" || ingresado == null)
     {
-        return false;
+        return true;
     }
-    else{ return true;}
+    return false;
 }
 function ValidarRangoNumerico(num:number, min:number, maxNum:number): boolean
 {
@@ -135,9 +135,37 @@ function  VerificarValidacionesLogin():boolean
     }
 }
 function AdministrarModificar(dni:string){
-    console.log((<HTMLInputElement> document.getElementById("inDniHidden")).value);
     (<HTMLInputElement> document.getElementById("inDniHidden")).value=dni;
-    console.log((<HTMLInputElement> document.getElementById("inDniHidden")).value);
     var myForm = <HTMLFormElement>document.getElementById('modForm');
     myForm.submit();
+}
+function Modificar(arrayElementos:string[])
+{
+    (<HTMLInputElement> document.getElementById("h2")).innerHTML = "Modificar";
+    (<HTMLInputElement> document.getElementById("titulo")).innerHTML = "HTML5 Formulario Modificar Empleado";
+    (<HTMLInputElement> document.getElementById("btnEnviar")).innerHTML = "Modificar";
+
+    (<HTMLInputElement> document.getElementById("inApellido")).value = arrayElementos[0];
+    (<HTMLInputElement> document.getElementById("inNombre")).value = arrayElementos[1];
+    (<HTMLInputElement> document.getElementById("inDNI")).value = arrayElementos[2];
+    if(arrayElementos[3]=="H")
+    {arrayElementos[3]="“2”"}
+    else if(arrayElementos[3]=="M")
+    {arrayElementos[3]="“3”"}
+    (<HTMLInputElement> document.getElementById("sexo")).value = arrayElementos[3];
+
+    (<HTMLInputElement> document.getElementById("inSueldo")).value = arrayElementos[4];
+    (<HTMLInputElement> document.getElementById("inLegajo")).value = arrayElementos[5];
+    (<HTMLInputElement> document.getElementById("inDNI")).setAttribute("readonly","readonly");
+    (<HTMLInputElement> document.getElementById("inLegajo")).setAttribute("readonly","readonly");
+
+    if(arrayElementos[6]=="mañana")
+    {
+        (<HTMLInputElement> document.getElementById("radioM")).checked = true;
+    }else if(arrayElementos[6]=="tarde"){
+        (<HTMLInputElement> document.getElementById("radioT")).checked= true;
+    }else{
+        (<HTMLInputElement> document.getElementById("radioN")).checked= true;
+    }
+    //(<HTMLInputElement> document.getElementById("inFoto")).value = arrayElementos[7]+arrayElementos[8];
 }

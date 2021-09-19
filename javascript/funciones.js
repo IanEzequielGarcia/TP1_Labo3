@@ -55,12 +55,10 @@ function VerificarValidaciones() {
     }
 }
 function ValidarCamposVacios(ingresado) {
-    if (ingresado == null || ingresado.match(/^\s*$/) !== null) {
-        return false;
-    }
-    else {
+    if (ingresado != "" || ingresado == null) {
         return true;
     }
+    return false;
 }
 function ValidarRangoNumerico(num, min, maxNum) {
     if (num > min && num < maxNum) {
@@ -129,9 +127,36 @@ function VerificarValidacionesLogin() {
     }
 }
 function AdministrarModificar(dni) {
-    console.log(document.getElementById("inDniHidden").value);
     document.getElementById("inDniHidden").value = dni;
-    console.log(document.getElementById("inDniHidden").value);
     var myForm = document.getElementById('modForm');
     myForm.submit();
+}
+function Modificar(arrayElementos) {
+    document.getElementById("h2").innerHTML = "Modificar";
+    document.getElementById("titulo").innerHTML = "HTML5 Formulario Modificar Empleado";
+    document.getElementById("btnEnviar").innerHTML = "Modificar";
+    document.getElementById("inApellido").value = arrayElementos[0];
+    document.getElementById("inNombre").value = arrayElementos[1];
+    document.getElementById("inDNI").value = arrayElementos[2];
+    if (arrayElementos[3] == "H") {
+        arrayElementos[3] = "“2”";
+    }
+    else if (arrayElementos[3] == "M") {
+        arrayElementos[3] = "“3”";
+    }
+    document.getElementById("sexo").value = arrayElementos[3];
+    document.getElementById("inSueldo").value = arrayElementos[4];
+    document.getElementById("inLegajo").value = arrayElementos[5];
+    document.getElementById("inDNI").setAttribute("readonly", "readonly");
+    document.getElementById("inLegajo").setAttribute("readonly", "readonly");
+    if (arrayElementos[6] == "mañana") {
+        document.getElementById("radioM").checked = true;
+    }
+    else if (arrayElementos[6] == "tarde") {
+        document.getElementById("radioT").checked = true;
+    }
+    else {
+        document.getElementById("radioN").checked = true;
+    }
+    //(<HTMLInputElement> document.getElementById("inFoto")).value = arrayElementos[7]+arrayElementos[8];
 }

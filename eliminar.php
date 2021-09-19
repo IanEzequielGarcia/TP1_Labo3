@@ -31,5 +31,5 @@
     echo "<br>";
     echo '<a href="./backend/mostrar.php">Al Mostrar</a>';
     echo "<br>";
-    echo '<a href="./index.html">Al index</a>';
+    echo '<a href="./index.php">Al index</a>';
 ?>

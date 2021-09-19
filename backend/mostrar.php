@@ -42,7 +42,7 @@
 ?>
 
 <hr>
-<A href="../index.html">Al Index</A>
+<A href="../index.php">Al Index</A>
 <br>
 <A href="./cerrarSesion.php">Cerrar Sesión</A>
 

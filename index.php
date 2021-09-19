@@ -21,21 +21,21 @@
         </tr>
         <tr>
             <td><label for="inDNI">DNI:</label></td>
-            <td><input type="text" id="inDNI" name="dni"><span style="display: none;" id="dDni">*</span></td>
+            <td><input type="number" min="1000000" max="55000000" id="inDNI" name="dni" required><span style="display: none;" id="dDni">*</span></td>
         </tr>
         <tr>
             <td><label for="inApellido">Apellido:</label></td>
-            <td><input type="text" id="inApellido" name="apellido"><span style="display: none;" id="dApellido">*</span></td>
+            <td><input type="text" id="inApellido" name="apellido" required><span style="display: none;" id="dApellido">*</span></td>
         </tr>
         <tr>
             <td><label for="inNombre">Nombre:</label></td>
-            <td><input type="text" id="inNombre" name="nombre"><span style="display: none;" id="dNombre">*</span></td>
+            <td><input type="text" id="inNombre" name="nombre" required><span style="display: none;" id="dNombre">*</span></td>
         </tr>
         <tr>
             <td><label>Sexo</label></td>
             <td>
-                <select size=“2” id="sexo" name="sexo" style="padding-right: 0.8em;">
-                    <option value=“1” selected disabled >Seleccione</option>
+                <select size=“2” id="sexo" name="sexo" style="padding-right: 0.8em;" required>
+                    <option value=“1” selected disabled>Seleccione</option>
                     <option value=“2”>Hombre</option>
                     <option value=“3”>Mujer</option>
                 </select>
@@ -52,34 +52,33 @@
         </tr>
         <tr>
             <td><label for="inLegajo">Legajo:</label></td>
-            <td><input type="text" id="inLegajo" name="legajo"><span style="display: none;" id="dLegajo">*</span></td>  
+            <td><input type="number" min="100" max="550" id="inLegajo" name="legajo" required><span style="display: none;" id="dLegajo">*</span></td>  
         </tr>
         <br>
         <tr>
             <td><label for="inSueldo">Sueldo</label></td>
-            <td><input type="text" id="inSueldo" name="sueldo"><span style="display: none;" id="dSueldo">*</span></td>
+            <td><input type="number" min="8000" step="500" max="25000" id="inSueldo" name="sueldo" required><span style="display: none;" id="dSueldo" >*</span></td>
         </tr>
         <tr>
-            <td><H5>Turno:</H5></td>
+            <td><H4>Turno:</H4></td>
             <td><span style="display: none;" id="dTurno">*</span></td>
         </tr>
-        <tr style="text-align: center;">
+        <tr>
             <td><label for="radioM" >Mañana</label></td>
-            <td><input name="radTurno" id="radioM" type="radio" value="mañana"></td>
+            <td><input name="radTurno" id="radioM" type="radio" value="mañana" checked></td>
         </tr>
-        <tr style="text-align: center;">
+        <tr>
             <td><label for="radioT">Tarde </label></td>
             <td><input name="radTurno" id="radioT" type="radio" value="tarde"></td>
         </tr>
-        <tr style="text-align: center;">
+        <tr>
             <td><label for="radioN">Noche</label> </td>
             <td><input name="radTurno" id="radioN" type="radio" value="noche"></td>
         </tr>
         <tr>
-            <td align="center"><input type="file" id="inFoto" name="foto" accept=".png, .jpg, .jpeg, .gif, .bmp"></td>
+            <td align="center"><input type="file" id="inFoto" name="foto" accept=".png, .jpg, .jpeg, .gif, .bmp" required></td>
             <td><span style="display: none;" id="dFoto">*</span></td>
         </tr>
-        <hr>
         <tr>
             <td colspan="2" align="right"><input type="reset"  value="Limpiar"></td>
         </tr>
@@ -90,53 +89,27 @@
             <td colspan="2" align="center"><A href="./backend/cerrarSesion.php">Cerrar Sesión</A></td>
         </tr>
     </table>
+        <?php
+        if(isset($_POST["dniH"]))
+        {
+            $DNIEmpleado=($_POST["dniH"]);
+            $ar = fopen("./archivos/empleados.txt",'r');
+            $fabrica = new Fabrica("Modificar");
+            $fabrica->TraerDeArchivo("./archivos/empleados.txt");
+            foreach($fabrica->GetEmpelados() as $empleados)
+            {
+                if($empleados->GetDni()==$_POST["dniH"])
+                {
+                    //Perez-ASS-1234567-H-234-134-mañana-./fotos/1234567-Perez.gif
+                    $Enviado = array($empleados->GetApellido(),$empleados->GetNombre(),
+                    $empleados->GetDni(),$empleados->GetSexo(),$empleados->GetSueldo(),$empleados->GetLegajo(),$empleados->GetTurno(),$empleados->GetFoto());
+                    echo '<script>Modificar('.json_encode($Enviado).');</script>';
+                    echo '<input type="hidden" id="hdnModificar" name="dniI" value='.$empleados->GetDni().'>';
+                    //echo '<script type="text/javascript">document.getElementById("modFormIndex").submit();</script>';
+                }
+            }
+        }
+        ?>
     </form>
     </body>
 </html>
-<?php
-    if(isset($_POST["dniH"]))
-    {
-        Modificar();
-    }
-    function Modificar()
-    {
-        $DNIEmpleado=($_POST["dniH"]);
-        $ar = fopen("./archivos/empleados.txt",'r');
-        $arrayElementos = array();
-        while(!feof($ar))
-        {
-            $misEmpleados=fgets($ar);
-            $arrayElementos=explode("-",$misEmpleados);
-            if($arrayElementos[0]!="<br>" && sizeof($arrayElementos)>=7
-            && $arrayElementos[2]==$DNIEmpleado)
-            {
-                $nuevoEmpelado = new Empleado($arrayElementos[0],$arrayElementos[1],$arrayElementos[2],
-                $arrayElementos[3],$arrayElementos[4],$arrayElementos[5],$arrayElementos[6]);
-                $nuevoEmpelado->SetFoto($arrayElementos[7]."-".$arrayElementos[8]);
-                break;
-            }
-            $fabrica = new Fabrica("Modificar");
-            $fabrica->TraerDeArchivo("./archivos/empleados.txt");
-        }
-    ?>   
-        <script type="text/javascript">
-            var miarray = "<?php echo $arrayElementos;?>";
-            document.getElementById("h2").innerHTML = "Modificar";
-            document.getElementById("titulo").innerHTML = "HTML5 Formulario Modificar Empleado";
-            document.getElementById("btnEnviar").innerHTML = "Modificar";
-
-            document.getElementById("inApellido").innerHTML = miarray[0];
-            document.getElementById("inNombre").innerHTML = miarray[1];
-            document.getElementById("inDNI").innerHTML = miarray[2];
-            document.getElementById("inSexo").innerHTML = miarray[3];
-            document.getElementById("radTurno").innerHTML = miarray[4];
-            document.getElementById("inSueldo").innerHTML = miarray[5];
-            document.getElementById("inLegajo").innerHTML = miarray[6];
-
-            (document.getElementById("inLegajo")).setAttribute("readonly");
-            (document.getElementById("inDni")).setAttribute("readonly");
-            console.log("listo");
-        </script>
-<?php
-    }
-?>

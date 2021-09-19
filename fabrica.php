@@ -14,6 +14,10 @@ class Fabrica implements Iarchivo
         $this->cantidadMaxima=7;
         $this->empleados=array();
     }
+    public function GetEmpelados()
+    {
+        return $this->empleados;
+    }
     public function AgregarEmpleado(Empleado $empleado)
     {
         if($this->cantidadMaxima>sizeof($this->empleados)+1)
@@ -37,8 +41,9 @@ class Fabrica implements Iarchivo
     {
         if(array_search($empleado,$this->empleados,false)!==false)
         {
-            unlink(trim($empleado->GetFoto()));
+            if(file_exists(trim($empleado->GetFoto()))){ unlink(trim($empleado->GetFoto()));}
             unset($this->empleados[array_search($empleado,$this->empleados)]);
+            $this->GuardarEnArchivo("./archivos/empleados.txt");
             return true;
         }
         else
