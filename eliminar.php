@@ -29,7 +29,7 @@
         echo "<br>Ese empleado no se encuentra en la fabrica<br>";
     }
     echo "<br>";
-    echo '<a href="./backend/mostrar.php">Al Mostrar</a>';
+    echo '<a href="./mostrar.php">Al Mostrar</a>';
     echo "<br>";
     echo '<a href="./index.php">Al index</a>';
 ?>

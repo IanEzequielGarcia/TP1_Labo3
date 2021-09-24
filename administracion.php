@@ -40,11 +40,11 @@
         $fabrica->AgregarEmpleado($empleado);
         if($fabrica->GuardarEnArchivo("./archivos/empleados.txt"))
         {
-           echo '<a href="./backend/mostrar.php">Al Mostrar</a>';
+           echo '<a href="./mostrar.php">Al Mostrar</a>';
         }
         else
         {
-            echo '<a href="./index.html">Al index</a>';
+            echo '<a href="./index.php">Al index</a>';
         }
     }else{
         echo "error al cargar la foto";

@@ -37,7 +37,7 @@ function AdministrarValidaciones():void
     AdministrarSpanError("dTurno",ValidarCombo(ObtenerTurnoSeleccionado(),"ninguno"));
     VerificarValidaciones();
 }
-function  VerificarValidaciones():boolean
+function VerificarValidaciones():boolean
 {
     if(document.getElementById("dDni")!.style.display == "none"
         &&document.getElementById("dApellido")!.style.display == "none"
@@ -143,7 +143,7 @@ function Modificar(arrayElementos:string[])
 {
     (<HTMLInputElement> document.getElementById("h2")).innerHTML = "Modificar";
     (<HTMLInputElement> document.getElementById("titulo")).innerHTML = "HTML5 Formulario Modificar Empleado";
-    (<HTMLInputElement> document.getElementById("btnEnviar")).innerHTML = "Modificar";
+    (<HTMLInputElement> document.getElementById("btnEnviar")).value = "Modificar";
 
     (<HTMLInputElement> document.getElementById("inApellido")).value = arrayElementos[0];
     (<HTMLInputElement> document.getElementById("inNombre")).value = arrayElementos[1];
@@ -167,5 +167,4 @@ function Modificar(arrayElementos:string[])
     }else{
         (<HTMLInputElement> document.getElementById("radioN")).checked= true;
     }
-    //(<HTMLInputElement> document.getElementById("inFoto")).value = arrayElementos[7]+arrayElementos[8];
 }

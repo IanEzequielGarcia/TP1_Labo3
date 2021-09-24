@@ -100,12 +100,10 @@
             {
                 if($empleados->GetDni()==$_POST["dniH"])
                 {
-                    //Perez-ASS-1234567-H-234-134-mañana-./fotos/1234567-Perez.gif
                     $Enviado = array($empleados->GetApellido(),$empleados->GetNombre(),
                     $empleados->GetDni(),$empleados->GetSexo(),$empleados->GetSueldo(),$empleados->GetLegajo(),$empleados->GetTurno(),$empleados->GetFoto());
                     echo '<script>Modificar('.json_encode($Enviado).');</script>';
                     echo '<input type="hidden" id="hdnModificar" name="dniI" value='.$empleados->GetDni().'>';
-                    //echo '<script type="text/javascript">document.getElementById("modFormIndex").submit();</script>';
                 }
             }
         }

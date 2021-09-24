@@ -1,11 +1,7 @@
-Rocha-Francisco-4342123-H-234-321-mañana-./fotos/4342123-Rocha.png
+Rocha-Fran-3020004-H-11500-105-noche-./fotos/3020004-Rocha.jpg
 
-Perez-ASS-1234567-H-234-134-mañana-./fotos/1234567-Perez.gif
+Faggio-Fabiana-1234567-M-9000-134-mañana-./fotos/1234567-Faggio.gif
 
----Seleccione---mañana-./fotos/-.jpg
+Pereyra-Juana-3050604-M-9500-324-tarde-./fotos/3050604-Pereyra.jpg
 
-asasda-aasdasd-1000002-H--113-mañana-./fotos/1000002-asasda.jpg
-
---1000002-Seleccione---mañana-./fotos/1000002-.jpg
-
---1000003-Seleccione---mañana-./fotos/1000003-.jpg
+Perez-Juan-1000020-H-10500-344-noche-./fotos/1000020-Perez.jpg
