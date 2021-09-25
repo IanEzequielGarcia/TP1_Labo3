@@ -25,7 +25,6 @@
                 $nuevoEmpelado->SetFoto($arrayElementos[7]."-".$arrayElementos[8]);
                 echo $nuevoEmpelado->__toString();
                 
-                //agregarle puntito si estoy fuera de ajax al img source de abajo
                 echo '<td>'.'<img src="'.$arrayElementos[7]."-".$arrayElementos[8].'" width="90px" height="90px">'."</td>";
                 //echo '<td>'.'<a href="../eliminar.php?legajo='.$arrayElementos[2].'"</a>[Eliminar]'.'<td>';
                 echo '<td>'.'<a href="#" onclick="Main.EliminarEmpleados('.$arrayElementos[2].')"</a>[Eliminar]'.'</td>';
@@ -39,7 +38,8 @@
         }
     }
     fclose($ar);
-    echo "<form method='POST' action='./index.php' id='modForm'>";
+    //echo "<form method='POST' action='./index.php' id='modForm'>";
+    echo "<form method='POST' action='./ajax.php' id='modForm'>";
     echo '<input type="hidden" id="inDniHidden" name="dniH">';
     echo "</form>";
 ?>

@@ -30,6 +30,10 @@ var Main;
         xmlhttp.open("POST", "./administracion.php", true);
         var formD = new FormData();
         xmlhttp.setRequestHeader("enctype", "multipart/form-data");
+        if (document.getElementById("hdnModificar")) {
+            var modificar = document.getElementById("hdnModificar").value;
+            formD.append('dniI', modificar);
+        }
         var dni = document.getElementById("inDNI").value;
         var nombre = document.getElementById("inNombre").value;
         var sexo = document.getElementById("sexo").value;
@@ -49,6 +53,7 @@ var Main;
         formD.append('radTurno', turno);
         formD.append('foto', foto.files[0]);
         xmlhttp.send(formD);
+        setTimeout(ActualizarEmpleados, 500);
     }
     Main.AgregarEmpleados = AgregarEmpleados;
     function MostrarEmpleados() {
@@ -61,13 +66,24 @@ var Main;
         }, 5000);
     }
     Main.MostrarEmpleados = MostrarEmpleados;
+    function ActualizarEmpleados() {
+        xmlhttp.open("GET", "./mostrar.php", true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function () {
+            document.getElementById("Mostrar").innerHTML = xmlhttp.responseText;
+        };
+    }
+    Main.ActualizarEmpleados = ActualizarEmpleados;
     function EliminarEmpleados(legajo) {
         xmlhttp.open("GET", "./eliminar.php?legajo=" + legajo, true);
         xmlhttp.send();
+        setTimeout(ActualizarEmpleados, 500);
     }
     Main.EliminarEmpleados = EliminarEmpleados;
     function ModificarEmpleados(arrayElementos) {
         Modificar(arrayElementos);
+        setTimeout(ActualizarEmpleados, 500);
+        AgregarEmpleados();
     }
     Main.ModificarEmpleados = ModificarEmpleados;
 })(Main || (Main = {}));

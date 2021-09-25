@@ -39,7 +39,10 @@ namespace Main{
         xmlhttp.open("POST","./administracion.php",true);
         var formD = new FormData();
         xmlhttp.setRequestHeader("enctype", "multipart/form-data");
-        
+        if((<HTMLInputElement> document.getElementById("hdnModificar"))){
+            let modificar:string= (<HTMLInputElement> document.getElementById("hdnModificar")).value
+            formD.append('dniI',modificar);
+        }
         let dni : string        = (<HTMLInputElement> document.getElementById("inDNI")).value;
         let nombre : string     = (<HTMLInputElement> document.getElementById("inNombre")).value;
         let sexo: string        = (<HTMLInputElement> document.getElementById("sexo")).value;
@@ -48,7 +51,6 @@ namespace Main{
         let apellido : string   = (<HTMLInputElement> document.getElementById("inApellido")).value;
         let foto : any          = (<HTMLInputElement> document.getElementById("inFoto"));
         let turno:string        = ObtenerTurnoSeleccionado();
-
         formD.append('foto', dni);
         formD.append('apellido', apellido);
         formD.append('nombre', nombre);
@@ -60,9 +62,11 @@ namespace Main{
         formD.append('radTurno', turno);
         formD.append('foto', foto.files[0]);
         xmlhttp.send(formD);
+        setTimeout(ActualizarEmpleados,500);
     }
     export function MostrarEmpleados():void {
         setTimeout(function(){
+            
             xmlhttp.open("GET","./mostrar.php",true);
             xmlhttp.send();
             xmlhttp.onreadystatechange = () => {
@@ -70,13 +74,22 @@ namespace Main{
             }
         },5000);
     }
+    export function ActualizarEmpleados():void {
+        xmlhttp.open("GET","./mostrar.php",true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = () => {
+            (<HTMLInputElement> document.getElementById("Mostrar")).innerHTML=xmlhttp.responseText;
+        }
+    }
     export function EliminarEmpleados(legajo:number):void {
         xmlhttp.open("GET", "./eliminar.php?legajo=" + legajo, true);
         xmlhttp.send();
+        setTimeout(ActualizarEmpleados,500);
     }
 
     export function ModificarEmpleados(arrayElementos:string[]):void {
         Modificar(arrayElementos);
+        setTimeout(ActualizarEmpleados,500);
+        AgregarEmpleados();
     }
-
 }

@@ -116,6 +116,7 @@ echo "<table style='border:1px solid black;'>";
                             echo '<input type="hidden" id="hdnModificar" name="dniI" value='.$empleados->GetDni().'>';
                         }
                     }
+                    ?>  <script>Main.ActualizarEmpleados();</script><?php
                 }
                 ?>
             </form>
@@ -132,44 +133,10 @@ echo "<table style='border:1px solid black;'>";
                 <script src="./javascript/jsApp.js"></script>
         </head>
     <tr>
-        <div id="Mostrar" onmouseover="Main.MostrarEmpleados()" style="border:1px solid black;">
-        <h2>Listado de Empleados</h2>
-        <h4>Info</h4>
-        <hr>
-        <?php
-            $ar=fopen("./archivos/empleados.txt","r");
-            while(!feof($ar))
-            {
-                $misEmpleados=fgets($ar);
-                $arrayElementos=explode("-",$misEmpleados);
-                if($arrayElementos[0]!="<br>"&& sizeof($arrayElementos)>=7)
-                {
-        ?>
-                <table style="width:40%" >
-                <tr id="trMostrar">
-                    <td id="tdMostrar"></td>
-                    <?php
-                    echo '<td style="width: 90%;">';
-                        $nuevoEmpelado = new Empleado($arrayElementos[0],$arrayElementos[1],$arrayElementos[2],
-                        $arrayElementos[3],$arrayElementos[4],$arrayElementos[5],$arrayElementos[6]);
-                        $nuevoEmpelado->SetFoto($arrayElementos[7]."-".$arrayElementos[8]);
-                        echo $nuevoEmpelado->__toString();
-                        echo '<td>.<img src="'.$arrayElementos[7]."-".$arrayElementos[8].'" width="90px" height="90px">'."</td>";
-                        echo '<td>'.'<a href="#" onclick="Main.EliminarEmpleados('.$arrayElementos[2].')"</a>[Eliminar]'.'</td>';
-                        //echo '<td>'.'<a href="#" onclick="EliminarEmpleados('.$arrayElementos[2].')"></a>[ELIMINAR]'.'</td>';
-                        echo '<td><input type="button" value="Modificar" onclick="ModificarEmpleados('.json_encode($arrayElementos).')"></td>';
-                    echo "</td>";
-                    ?> 
-                </tr>
-                </table>
-        <?php
-                }
-            }
-            fclose($ar);
-            echo "<form method='POST' action='./index.php' id='modForm'>";
-            echo '<input type="hidden" id="inDniHidden" name="dniH">';
-            echo "</form>";
-        ?>
+        <div id="Mostrar" style="border:1px solid black;">
+        <script>
+            Main.ActualizarEmpleados();
+        </script>
         </div>
     </tr>
     <tr>
