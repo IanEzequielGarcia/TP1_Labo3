@@ -11,7 +11,8 @@
     </head>
 
     <body>
-    <form action="./administracion.php" method="POST" enctype="multipart/form-data">
+    <form enctype="multipart/form-data" id="frmIngreso">
+    <!--<form action="./administracion.php" method="POST" enctype="multipart/form-data">-->
     <table align="center">
         <tr>
             <td><h2 id="h2">Datos personales</h2></td>
@@ -83,7 +84,8 @@
             <td colspan="2" align="right"><input type="reset"  value="Limpiar"></td>
         </tr>
         <tr>
-            <td colspan="2" align="right"><input type="submit" value="Enviar" id="btnEnviar" onclick="AdministrarValidaciones()"></td>
+            <!--<td colspan="2" align="right"><input type="submit" value="Enviar" id="btnEnviar" onclick="AdministrarValidaciones()"></td>-->
+            <td colspan="2" align="right"><input type="submit" value="Enviar" id="btnEnviar" onclick="Main.AgregarEmpleados()"></td>
         </tr>
         <tr>
             <td colspan="2" align="center"><A href="./backend/cerrarSesion.php">Cerrar Sesión</A></td>

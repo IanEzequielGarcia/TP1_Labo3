@@ -1,8 +1,9 @@
-Rocha-Fran-3020004-H-11500-105-noche-./fotos/3020004-Rocha.jpg
-
-Faggio-Fabiana-1234567-M-9000-134-mañana-./fotos/1234567-Faggio.gif
-
 Pereyra-Juana-3050604-M-9500-324-tarde-./fotos/3050604-Pereyra.jpg
 
-Perez-Juan-1000001-H-10000-101-mañana-./fotos/1000001-Perez.jpg
+Rocha-Fran-1000001-H-8500-101-tarde-./fotos/1000001-Rocha.jpg
 
+Faggio-Fabiana-1000002-M-8500-102-mañana-./fotos/1000002-Faggio.png
+
+Perez-Juan-1000003-H-9000-101-tarde-./fotos/1000003-Perez.jpg
+
+PP-AA-1000004-H-10000-103-noche-./fotos/1000004-PP.jpg

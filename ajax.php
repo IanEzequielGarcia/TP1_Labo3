@@ -14,13 +14,13 @@ echo "<table style='border:1px solid black;'>";
             <head>
                 <meta charset="utf-8">
                 <title id="titulo">Formulario Alta Empleado</title>
-                <link rel="stylesheet" href="">
                 <script>var exports = {};</script>
                 <script src="./javascript/funciones.js"></script>
                 <script>var exports = {};</script>
                 <script src="./javascript/jsApp.js"></script>
             </head>
             <body>
+            <div id="Index">
             <form enctype="multipart/form-data" id="frmIngreso">
             <table align="left" style="border:1px solid black;">
                 <tr>
@@ -95,9 +95,6 @@ echo "<table style='border:1px solid black;'>";
                 <tr>
                     <td colspan="2" align="right"><input type="submit" value="Enviar" id="btnEnviar" onclick="Main.AgregarEmpleados()"></td>
                 </tr>
-                <tr>
-                    <td colspan="2" align="center"><A href="./backend/cerrarSesion.php">Cerrar Sesión</A></td>
-                </tr>
             </table>
                 <?php
                 if(isset($_POST["dniH"]))
@@ -116,11 +113,12 @@ echo "<table style='border:1px solid black;'>";
                             echo '<input type="hidden" id="hdnModificar" name="dniI" value='.$empleados->GetDni().'>';
                         }
                     }
-                    ?>  <script>Main.ActualizarEmpleados();</script><?php
+                    ?>  <script>Main.ActualizarEmpleados();alert("entro");</script><?php
                 }
                 ?>
             </form>
             </body>
+            </div>
         </html>
             <?php
     echo "</tr>";
@@ -139,10 +137,8 @@ echo "<table style='border:1px solid black;'>";
         </script>
         </div>
     </tr>
-    <tr>
-        <div style="border:1px solid black;">
+    <tr style="border:1px solid black; top:-100px">
         <A href="./cerrarSesion.php">Cerrar Sesión</A>
-        </div>
     </tr>
     </table>
     </html>

@@ -1,14 +1,39 @@
 <html>
+    <table align="center">
     <h2>Listado de Empleados</h2>
     <h4>Info</h4>
     <hr>
     <script src="./javascript/funciones.js"></script>
+    <script>var exports = {};</script>
     <script src="./javascript/jsApp.js"></script>
 
 <?php
     include_once "./backend/validarSesion.php";
     include_once "./fabrica.php";
     $ar=fopen("./archivos/empleados.txt","r");
+    $mifabrica = new Fabrica("mostrar");
+    $mifabrica->TraerDeArchivo("./archivos/empleados.txt");
+
+    echo '<table style="width:40%" align="center">';
+    foreach($mifabrica->GetEmpelados() as $misEmpleados)
+    {
+        echo '<tr>';
+            echo '<td style="width: 90%;">';
+                echo $misEmpleados->__toString();
+                echo '<td>'.'<img src="'.$misEmpleados->GetFoto().'" width="90px" height="90px">'."</td>";
+                echo '<td>'.'<a href="#" onclick="Main.EliminarEmpleados('.$misEmpleados->GetDni().')"</a>[Eliminar]'.'</td>';
+                //echo '<td><input type="button" value="Modificar" onclick="AdministrarModificar('.$misEmpleados->GetDni().')"></td>';
+                echo '<td><input type="button" value="Modificar" onclick="Main.ModificarEmpleados('.$misEmpleados->GetDni().')"></td>';
+            echo "</td>";
+        echo '</tr>';
+    }
+    echo '</table>';
+
+    //echo "<form method='POST' action='./index.php' id='modForm'>";
+    echo "<form method='POST' action='./ajax.php' id='modForm'>";
+    echo '<input type="hidden" id="inDniHidden" name="dniH">';
+    echo "</form>";
+    /*
     while(!feof($ar))
     {
         $misEmpleados=fgets($ar);
@@ -38,14 +63,6 @@
         }
     }
     fclose($ar);
-    //echo "<form method='POST' action='./index.php' id='modForm'>";
-    echo "<form method='POST' action='./ajax.php' id='modForm'>";
-    echo '<input type="hidden" id="inDniHidden" name="dniH">';
-    echo "</form>";
+    */
 ?>
-
-<hr>
-<A href="./index.php">Al Index</A>
-<br>
-<A href="./backend/cerrarSesion.php">Cerrar Sesión</A>
 </html>
