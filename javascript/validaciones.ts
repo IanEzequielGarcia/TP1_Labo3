@@ -11,7 +11,7 @@ Retorna el valor del elemento (type=radio) seleccionado por el usuario. Verifica
 Recibe como parámetro el valor del turno elegido y retornará el valor del sueldo máximo.Según corresponda, se mostrarán mensajes (por consola y alerts) informando el error encontrado.
 Estas funciones estarán en el archivo validaciones.ts, que luego de ser transpilado, se agregarán al index.html como funciones.js (utilizar el comando --outfile).
 */
-function AdministrarValidaciones():void
+function AdministrarValidaciones():boolean
 {
     let dni : string = (<HTMLInputElement> document.getElementById("inDNI")).value;
     let nombre : string = (<HTMLInputElement> document.getElementById("inNombre")).value;
@@ -27,15 +27,13 @@ function AdministrarValidaciones():void
     AdministrarSpanError("dDni", ValidarCamposVacios(dni)&&ValidarRangoNumerico(parseInt(dni),1000000,55000000));
     AdministrarSpanError("dLegajo", ValidarCamposVacios(legajo)&&ValidarRangoNumerico(parseInt(legajo),100,550));
     AdministrarSpanError("dSueldo", ValidarCamposVacios(sueldo)&&ValidarRangoNumerico(parseInt(sueldo),1,ObtenerSueldoMaximo(sueldo)) );
-    sexo=sexo.slice(1,2);
-    if(sexo=="2")
-    {sexo="H"}
-    else if(sexo=="3")
-    {sexo="M"}
-    else{sexo="Seleccione"}
     AdministrarSpanError("dSexo",ValidarCombo(sexo.toString(),"Seleccione"));
     AdministrarSpanError("dTurno",ValidarCombo(ObtenerTurnoSeleccionado(),"ninguno"));
-    VerificarValidaciones();
+    if(VerificarValidaciones())
+    {
+        return true;
+    }
+    return false;
 }
 function VerificarValidaciones():boolean
 {
@@ -148,10 +146,6 @@ function Modificar(arrayElementos:string[])
     (<HTMLInputElement> document.getElementById("inApellido")).value = arrayElementos[0];
     (<HTMLInputElement> document.getElementById("inNombre")).value = arrayElementos[1];
     (<HTMLInputElement> document.getElementById("inDNI")).value = arrayElementos[2];
-    if(arrayElementos[3]=="H")
-    {arrayElementos[3]="“2”"}
-    else if(arrayElementos[3]=="M")
-    {arrayElementos[3]="“3”"}
     (<HTMLInputElement> document.getElementById("sexo")).value = arrayElementos[3];
 
     (<HTMLInputElement> document.getElementById("inSueldo")).value = arrayElementos[4];

@@ -8,10 +8,10 @@ class Fabrica implements Iarchivo
     private $empleados;
     private $razonSocial;
 
-    public function __construct($razon)
+    public function __construct($razon,$cantidadMaxima=7)
     {
         $this->razonSocial=$razon;
-        $this->cantidadMaxima=7;
+        $this->cantidadMaxima=$cantidadMaxima;
         $this->empleados=array();
     }
     public function GetEmpelados()
@@ -41,7 +41,8 @@ class Fabrica implements Iarchivo
     {
         if(array_search($empleado,$this->empleados,false)!==false)
         {
-            if(file_exists(trim($empleado->GetFoto()))){ unlink(trim($empleado->GetFoto()));}
+            if(file_exists(trim($empleado->GetFoto())))
+            { unlink(trim($empleado->GetFoto()));}
             unset($this->empleados[array_search($empleado,$this->empleados)]);
             $this->GuardarEnArchivo("./archivos/empleados.txt");
             return true;
@@ -64,9 +65,9 @@ class Fabrica implements Iarchivo
             echo "<br>";
         }
     }
-    function TraerDeArchivo(string $ar)
+    function TraerDeArchivo(string $path)
     {
-        $ar=fopen("./archivos/empleados.txt","r");
+        $ar=fopen($path,"r");
         while(!feof($ar))
         {
             $misEmpleados=fgets($ar);

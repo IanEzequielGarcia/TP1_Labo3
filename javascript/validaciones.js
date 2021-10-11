@@ -25,19 +25,12 @@ function AdministrarValidaciones() {
     AdministrarSpanError("dDni", ValidarCamposVacios(dni) && ValidarRangoNumerico(parseInt(dni), 1000000, 55000000));
     AdministrarSpanError("dLegajo", ValidarCamposVacios(legajo) && ValidarRangoNumerico(parseInt(legajo), 100, 550));
     AdministrarSpanError("dSueldo", ValidarCamposVacios(sueldo) && ValidarRangoNumerico(parseInt(sueldo), 1, ObtenerSueldoMaximo(sueldo)));
-    sexo = sexo.slice(1, 2);
-    if (sexo == "2") {
-        sexo = "H";
-    }
-    else if (sexo == "3") {
-        sexo = "M";
-    }
-    else {
-        sexo = "Seleccione";
-    }
     AdministrarSpanError("dSexo", ValidarCombo(sexo.toString(), "Seleccione"));
     AdministrarSpanError("dTurno", ValidarCombo(ObtenerTurnoSeleccionado(), "ninguno"));
-    VerificarValidaciones();
+    if (VerificarValidaciones()) {
+        return true;
+    }
+    return false;
 }
 function VerificarValidaciones() {
     if (document.getElementById("dDni").style.display == "none"
@@ -138,12 +131,6 @@ function Modificar(arrayElementos) {
     document.getElementById("inApellido").value = arrayElementos[0];
     document.getElementById("inNombre").value = arrayElementos[1];
     document.getElementById("inDNI").value = arrayElementos[2];
-    if (arrayElementos[3] == "H") {
-        arrayElementos[3] = "“2”";
-    }
-    else if (arrayElementos[3] == "M") {
-        arrayElementos[3] = "“3”";
-    }
     document.getElementById("sexo").value = arrayElementos[3];
     document.getElementById("inSueldo").value = arrayElementos[4];
     document.getElementById("inLegajo").value = arrayElementos[5];

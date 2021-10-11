@@ -1,5 +1,9 @@
-///<reference path="validaciones.ts" />
 
+/// <reference path="validaciones.ts" />
+window.onload = function(){
+    Main.ActualizarIndex();
+    Main.ActualizarEmpleados();
+}
 export class Ajax
 {
     private xhr: XMLHttpRequest;
@@ -74,8 +78,7 @@ export class Ajax
         };
     };
 }
-namespace Main{
-    const xmlhttp : XMLHttpRequest = new XMLHttpRequest();
+export namespace Main{
     function Success(retorno:string):void {
         console.clear();
         console.log(retorno);
@@ -86,76 +89,109 @@ namespace Main{
         console.log(retorno);
     }
     export function AgregarEmpleados():void {
-        AdministrarValidaciones();
-        xmlhttp.open("POST","./administracion.php",true);
-        var formD = new FormData();
-        xmlhttp.setRequestHeader("enctype", "multipart/form-data");
-        if((<HTMLInputElement> document.getElementById("hdnModificar"))){
-            let modificar:string= (<HTMLInputElement> document.getElementById("hdnModificar")).value
-            formD.append('dniI',modificar);
+        if(AdministrarValidaciones())
+        {
+            const xmlhttp : XMLHttpRequest = new XMLHttpRequest();
+            xmlhttp.open("POST","./administracion.php",true);
+            var formD = new FormData();
+            xmlhttp.setRequestHeader("enctype", "multipart/form-data");
+            if((<HTMLInputElement> document.getElementById("hdnModificar"))){
+                let modificar:string= (<HTMLInputElement> document.getElementById("hdnModificar")).value
+                formD.append('dniI',modificar);
+            }
+            let dni : string        = (<HTMLInputElement> document.getElementById("inDNI")).value;
+            let nombre : string     = (<HTMLInputElement> document.getElementById("inNombre")).value;
+            let sexo: string        = (<HTMLInputElement> document.getElementById("sexo")).value;
+            let legajo : string     = (<HTMLInputElement> document.getElementById("inLegajo")).value;
+            let sueldo : string     = (<HTMLInputElement> document.getElementById("inSueldo")).value;
+            let apellido : string   = (<HTMLInputElement> document.getElementById("inApellido")).value;
+            let foto : any          = (<HTMLInputElement> document.getElementById("inFoto"));
+            let turno:string        = ObtenerTurnoSeleccionado();
+            
+            formD.append('foto', dni);
+            formD.append('apellido', apellido);
+            formD.append('nombre', nombre);
+            formD.append('dni', dni);
+            formD.append('sexo', sexo);
+            formD.append('sueldo', sueldo);
+            formD.append('legajo', legajo);
+            formD.append('legajo', legajo);
+            formD.append('radTurno', turno);
+            formD.append('foto', foto.files[0]);
+            xmlhttp.send(formD);
+            Main.ActualizarEmpleados();
         }
-        let dni : string        = (<HTMLInputElement> document.getElementById("inDNI")).value;
-        let nombre : string     = (<HTMLInputElement> document.getElementById("inNombre")).value;
-        let sexo: string        = (<HTMLInputElement> document.getElementById("sexo")).value;
-        let legajo : string     = (<HTMLInputElement> document.getElementById("inLegajo")).value;
-        let sueldo : string     = (<HTMLInputElement> document.getElementById("inSueldo")).value;
-        let apellido : string   = (<HTMLInputElement> document.getElementById("inApellido")).value;
-        let foto : any          = (<HTMLInputElement> document.getElementById("inFoto"));
-        let turno:string        = ObtenerTurnoSeleccionado();
-        
-        formD.append('foto', dni);
-        formD.append('apellido', apellido);
-        formD.append('nombre', nombre);
-        formD.append('dni', dni);
-        formD.append('sexo', sexo);
-        formD.append('sueldo', sueldo);
-        formD.append('legajo', legajo);
-        formD.append('legajo', legajo);
-        formD.append('radTurno', turno);
-        formD.append('foto', foto.files[0]);
-        xmlhttp.send(formD);
-        setTimeout(ActualizarEmpleados,500);
     }
-    export function ActualizarEmpleados():void {
-        xmlhttp.open("GET","./mostrar.php",true);
+    export function Testear(){
+        const xmlhttp : XMLHttpRequest = new XMLHttpRequest();
+        //(<HTMLInputElement> document.getElementById("inDniHidden")).value=dni;
+        //var myForm = <HTMLFormElement>document.getElementById('modForm');
+        //myForm.submit();
+        let param:string = "dniH="+"1000001";
+        let miAjax:Ajax = new Ajax();
+        miAjax.Post("./index.php",Success,param,Fail);
+
+        xmlhttp.open("POST", "./index.php", true);
+        var formD = new FormData();
+        formD.append("dniH","1000001");
+        xmlhttp.send(formD);
+        xmlhttp.onreadystatechange = () => {
+        if (xmlhttp.readyState === 4)
+        {
+            if (xmlhttp.status === 200)
+            {
+                //let index = document.open("./index.php");
+                //index.write(xmlhttp.responseText);
+                document.write(xmlhttp.responseText);
+                //(<HTMLInputElement> document.getElementById("Index")).innerHTML=xmlhttp.responseText;
+                //console.log(xmlhttp.responseText);
+            }
+        }}    
+    }
+    export function ActualizarIndex():void {
+        const xmlhttp : XMLHttpRequest = new XMLHttpRequest();
+        xmlhttp.open("GET","./index.php",true);
         xmlhttp.send();
         xmlhttp.onreadystatechange = () => {
-            if(<HTMLInputElement> document.getElementById("Mostrar"))
+            if (xmlhttp.readyState === 4)
             {
-                (<HTMLInputElement> document.getElementById("Mostrar")).innerHTML=xmlhttp.responseText;
+                if (xmlhttp.status === 200)
+                {
+                    (<HTMLInputElement> document.getElementById("IndexAjax")).innerHTML=xmlhttp.responseText;
+                }
+            }
+        }
+    }
+    export function ActualizarEmpleados():void {
+        const xmlhttp : XMLHttpRequest = new XMLHttpRequest();
+        xmlhttp.open("GET","./backend/mostrar.php",true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = () => {
+            if(<HTMLInputElement> document.getElementById("MostrarAjax"))
+            {
+                (<HTMLInputElement> document.getElementById("MostrarAjax")).innerHTML=xmlhttp.responseText;
             }
         }
     }
     export function EliminarEmpleados(legajo:number):void {
+        const xmlhttp : XMLHttpRequest = new XMLHttpRequest();
         xmlhttp.open("GET", "./eliminar.php?legajo=" + legajo, true);
         xmlhttp.send();
         setTimeout(ActualizarEmpleados,500);
     }
 
     export function ModificarEmpleados(dni:string):boolean {
-        //(<HTMLInputElement> document.getElementById("inDniHidden")).value=dni;
-        //var myForm = <HTMLFormElement>document.getElementById('modForm');
-        //myForm.submit();
-        let param:string = "dniH="+dni;
-        let miAjax:Ajax = new Ajax();
-        miAjax.Post("./ajax.php",Success,param,Fail);
-        
-        xmlhttp.open("POST", "./ajax.php", true);
+        const xmlhttp : XMLHttpRequest = new XMLHttpRequest();
+        xmlhttp.open("POST", "./index.php", true);
         var formD = new FormData();
         formD.append("dniH",dni);
         xmlhttp.send(formD);
-        if(<HTMLInputElement> document.getElementById("Index"))
+        xmlhttp.onreadystatechange = () => {
+        if(<HTMLInputElement> document.getElementById("IndexAjax"))
         {
-            (<HTMLInputElement> document.getElementById("Index")).innerHTML=xmlhttp.responseText;
-        }
-        else { console.log(xmlhttp.responseText);}
-        ActualizarEmpleados();
-        //echo "<form method='POST' action='./index.php' id='modForm'>";
-        //echo "<form method='POST' action='./ajax.php' id='modForm'>";
-        //echo '<input type="hidden" id="inDniHidden" name="dniH">';
-        //echo "</form>";
-        //Modificar(arrayElementos);
-        //AgregarEmpleados();
+            (<HTMLInputElement> document.getElementById("IndexAjax")).innerHTML=xmlhttp.responseText;
+            console.log(xmlhttp.responseText);
+        }}
         return false;
     }
 }
