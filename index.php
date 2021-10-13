@@ -70,7 +70,7 @@
                 {
                 echo '<td><input type="number" min="1000000" max="55000000" id="inDNI" name="dni" required><span style="display: none;" id="dDni">*</span></td>';
                 }else{
-                    echo '<td><input type="number" min="1000000" max="55000000" id="inDNI" name="dni" required disabled value="'.$dni.'"><span style="display: none;" id="dDni">*</span></td>';
+                    echo '<td><input type="number" min="1000000" max="55000000" id="inDNI" name="dni" required readonly value="'.$dni.'"><span style="display: none;" id="dDni">*</span></td>';
                 }
                 ?> 
             </tr>
@@ -122,7 +122,7 @@
                 {
                 echo '<td><input type="number" min="100" max="550" id="inLegajo" name="legajo" required><span style="display: none;" id="dLegajo">*</span></td>';
                 }else{
-                    echo '<td><input type="number" min="100" max="550" id="inLegajo" name="legajo" required disabled value="'.$legajo.'"><span style="display: none;" id="dLegajo">*</span></td>';
+                    echo '<td><input type="number" min="100" max="550" id="inLegajo" name="legajo" required readonly value="'.$legajo.'"><span style="display: none;" id="dLegajo">*</span></td>';
                 }
                 ?> 
             </tr>
@@ -191,10 +191,7 @@
             </tr>
             <tr>
                 <!--<td colspan="2" align="right"><input type="submit" value="Enviar" id="btnEnviar" onclick="AdministrarValidaciones()"></td>-->
-                <td colspan="2" align="right"><input type="submit" value="<?php echo $boton?>" id="btnEnviar" onclick="Main.AgregarEmpleados()"></td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center"><A href="./backend/cerrarSesion.php">Cerrar Sesión</A></td>
+                <td colspan="2" align="right"><input type="button" value="<?php echo $boton?>" id="btnEnviar" onclick="Main.AgregarEmpleados()"></td>
             </tr>
         </table>
         </form>

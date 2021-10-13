@@ -11,21 +11,32 @@
             <script src="./javascript/funciones.js"></script>
             <script>var exports = {};</script>
             <script src="./javascript/jsApp.js"></script>
+            <style>
+                html, body {
+                height: 100%;
+                }
+                td{
+                    width: 40%;
+                    height: 100%;
+                }
+            </style>
         </head>
         <body>
             <h2>Ian Garcia</h2>
-            <table style='border:1px solid black;'>
-                <tr>
-                    <div id="IndexAjax" style="border:1px solid black;">
-                    </div>
+            <table style='border:1px solid black;' class="tabla">
+                <tr style="border: 1px solid black">
+                    <td id="tdIndex" style="border: 1px solid black">
+                        <div id="IndexAjax">
+                        </div>
+                    </td>
+                    <td style="border: 1px solid black">
+                        <div id="MostrarAjax">
+                        </div>
+                    </td>
                 </tr>
-                <tr>
-                    <div id="MostrarAjax" style="border:1px solid black;">
-                    </div>
-                </tr>
-                <tr style="border:1px solid black; top:-100px">
+                <td style="border:1px solid black;">
                     <A href="./cerrarSesion.php">Cerrar Sesión</A>
-                </tr>
+                </td>
             </table>
         </body>
     </html>

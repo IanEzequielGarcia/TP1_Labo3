@@ -13,7 +13,7 @@
         && $arrayElementos[0]==$apellido && $arrayElementos[2]==$DNIEmpleado)
         {
             $banderaEncontrado=1;
-            header("Location: ../mostrar.php");
+            header("Location: ./mostrar.php");
             break;
         }
     }

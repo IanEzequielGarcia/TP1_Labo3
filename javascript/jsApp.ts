@@ -108,10 +108,9 @@ export namespace Main{
             let foto : any          = (<HTMLInputElement> document.getElementById("inFoto"));
             let turno:string        = ObtenerTurnoSeleccionado();
             
-            formD.append('foto', dni);
+            formD.append('dni', dni);
             formD.append('apellido', apellido);
             formD.append('nombre', nombre);
-            formD.append('dni', dni);
             formD.append('sexo', sexo);
             formD.append('sueldo', sueldo);
             formD.append('legajo', legajo);
@@ -119,34 +118,35 @@ export namespace Main{
             formD.append('radTurno', turno);
             formD.append('foto', foto.files[0]);
             xmlhttp.send(formD);
-            Main.ActualizarEmpleados();
+            setTimeout(Main.ActualizarEmpleados,1000);
         }
     }
     export function Testear(){
         const xmlhttp : XMLHttpRequest = new XMLHttpRequest();
-        //(<HTMLInputElement> document.getElementById("inDniHidden")).value=dni;
-        //var myForm = <HTMLFormElement>document.getElementById('modForm');
-        //myForm.submit();
-        let param:string = "dniH="+"1000001";
-        let miAjax:Ajax = new Ajax();
-        miAjax.Post("./index.php",Success,param,Fail);
-
-        xmlhttp.open("POST", "./index.php", true);
+        xmlhttp.open("POST","./administracion.php",true);
         var formD = new FormData();
-        formD.append("dniH","1000001");
+        xmlhttp.setRequestHeader("enctype", "multipart/form-data");
+
+        let dni : string        = "1010101";
+        let nombre : string     = "test";
+        let sexo: string        = "H";
+        let legajo : string     = "351";
+        let sueldo : string     = "10000";
+        let apellido : string   = "test2";
+        let foto : any          = (<HTMLInputElement> document.getElementById("inFoto"));
+        let turno:string        = "Mañana";
+        
+        formD.append('apellido', apellido);
+        formD.append('nombre', nombre);
+        formD.append('dni', dni);
+        formD.append('sexo', sexo);
+        formD.append('sueldo', sueldo);
+        formD.append('legajo', legajo);
+        formD.append('legajo', legajo);
+        formD.append('radTurno', turno);
+        formD.append('foto', foto.files[0]);
         xmlhttp.send(formD);
-        xmlhttp.onreadystatechange = () => {
-        if (xmlhttp.readyState === 4)
-        {
-            if (xmlhttp.status === 200)
-            {
-                //let index = document.open("./index.php");
-                //index.write(xmlhttp.responseText);
-                document.write(xmlhttp.responseText);
-                //(<HTMLInputElement> document.getElementById("Index")).innerHTML=xmlhttp.responseText;
-                //console.log(xmlhttp.responseText);
-            }
-        }}    
+        return false
     }
     export function ActualizarIndex():void {
         const xmlhttp : XMLHttpRequest = new XMLHttpRequest();
@@ -167,9 +167,15 @@ export namespace Main{
         xmlhttp.open("GET","./backend/mostrar.php",true);
         xmlhttp.send();
         xmlhttp.onreadystatechange = () => {
-            if(<HTMLInputElement> document.getElementById("MostrarAjax"))
+            if (xmlhttp.readyState === 4)
             {
-                (<HTMLInputElement> document.getElementById("MostrarAjax")).innerHTML=xmlhttp.responseText;
+                if (xmlhttp.status === 200)
+                {
+                    if(<HTMLInputElement> document.getElementById("MostrarAjax"))
+                    {
+                        (<HTMLInputElement> document.getElementById("MostrarAjax")).innerHTML=xmlhttp.responseText;
+                    }
+                }
             }
         }
     }

@@ -86,10 +86,9 @@ var Main;
             var apellido = document.getElementById("inApellido").value;
             var foto = document.getElementById("inFoto");
             var turno = ObtenerTurnoSeleccionado();
-            formD.append('foto', dni);
+            formD.append('dni', dni);
             formD.append('apellido', apellido);
             formD.append('nombre', nombre);
-            formD.append('dni', dni);
             formD.append('sexo', sexo);
             formD.append('sueldo', sueldo);
             formD.append('legajo', legajo);
@@ -97,33 +96,34 @@ var Main;
             formD.append('radTurno', turno);
             formD.append('foto', foto.files[0]);
             xmlhttp.send(formD);
-            Main.ActualizarEmpleados();
+            setTimeout(Main.ActualizarEmpleados, 1000);
         }
     }
     Main.AgregarEmpleados = AgregarEmpleados;
     function Testear() {
         var xmlhttp = new XMLHttpRequest();
-        //(<HTMLInputElement> document.getElementById("inDniHidden")).value=dni;
-        //var myForm = <HTMLFormElement>document.getElementById('modForm');
-        //myForm.submit();
-        var param = "dniH=" + "1000001";
-        var miAjax = new Ajax();
-        miAjax.Post("./index.php", Success, param, Fail);
-        xmlhttp.open("POST", "./index.php", true);
+        xmlhttp.open("POST", "./administracion.php", true);
         var formD = new FormData();
-        formD.append("dniH", "1000001");
+        xmlhttp.setRequestHeader("enctype", "multipart/form-data");
+        var dni = "1010101";
+        var nombre = "test";
+        var sexo = "H";
+        var legajo = "351";
+        var sueldo = "10000";
+        var apellido = "test2";
+        var foto = document.getElementById("inFoto");
+        var turno = "Mañana";
+        formD.append('apellido', apellido);
+        formD.append('nombre', nombre);
+        formD.append('dni', dni);
+        formD.append('sexo', sexo);
+        formD.append('sueldo', sueldo);
+        formD.append('legajo', legajo);
+        formD.append('legajo', legajo);
+        formD.append('radTurno', turno);
+        formD.append('foto', foto.files[0]);
         xmlhttp.send(formD);
-        xmlhttp.onreadystatechange = function () {
-            if (xmlhttp.readyState === 4) {
-                if (xmlhttp.status === 200) {
-                    //let index = document.open("./index.php");
-                    //index.write(xmlhttp.responseText);
-                    document.write(xmlhttp.responseText);
-                    //(<HTMLInputElement> document.getElementById("Index")).innerHTML=xmlhttp.responseText;
-                    //console.log(xmlhttp.responseText);
-                }
-            }
-        };
+        return false;
     }
     Main.Testear = Testear;
     function ActualizarIndex() {
@@ -144,8 +144,12 @@ var Main;
         xmlhttp.open("GET", "./backend/mostrar.php", true);
         xmlhttp.send();
         xmlhttp.onreadystatechange = function () {
-            if (document.getElementById("MostrarAjax")) {
-                document.getElementById("MostrarAjax").innerHTML = xmlhttp.responseText;
+            if (xmlhttp.readyState === 4) {
+                if (xmlhttp.status === 200) {
+                    if (document.getElementById("MostrarAjax")) {
+                        document.getElementById("MostrarAjax").innerHTML = xmlhttp.responseText;
+                    }
+                }
             }
         };
     }
