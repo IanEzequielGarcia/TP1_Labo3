@@ -1,79 +1,19 @@
 "use strict";
 exports.__esModule = true;
-exports.Main = exports.Ajax = void 0;
+exports.Main = void 0;
 /// <reference path="validaciones.ts" />
 window.onload = function () {
     Main.ActualizarIndex();
     Main.ActualizarEmpleados();
 };
-var Ajax = /** @class */ (function () {
-    function Ajax() {
-        var _this = this;
-        this.Get = function (ruta, success, params, error) {
-            if (params === void 0) { params = ""; }
-            var parametros = params.length > 0 ? params : "";
-            ruta = params.length > 0 ? ruta + "?" + parametros : ruta;
-            _this.xhr.open('GET', ruta);
-            _this.xhr.send();
-            _this.xhr.onreadystatechange = function () {
-                if (_this.xhr.readyState === Ajax.DONE) {
-                    if (_this.xhr.status === Ajax.OK) {
-                        success(_this.xhr.responseText);
-                    }
-                    else {
-                        if (error !== undefined) {
-                            error(_this.xhr.status);
-                        }
-                    }
-                }
-            };
-        };
-        this.Post = function (ruta, success, params, error) {
-            if (params === void 0) { params = ""; }
-            _this.xhr.open('POST', ruta, true);
-            if (typeof (params) == "string") {
-                _this.xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
-            }
-            else {
-                _this.xhr.setRequestHeader("enctype", "multipart/form-data");
-            }
-            _this.xhr.send(params);
-            _this.xhr.onreadystatechange = function () {
-                if (_this.xhr.readyState === Ajax.DONE) {
-                    if (_this.xhr.status === Ajax.OK) {
-                        success(_this.xhr.responseText);
-                    }
-                    else {
-                        if (error !== undefined) {
-                            error(_this.xhr.status);
-                        }
-                    }
-                }
-            };
-        };
-        this.xhr = new XMLHttpRequest();
-        Ajax.DONE = 4;
-        Ajax.OK = 200;
-    }
-    return Ajax;
-}());
-exports.Ajax = Ajax;
 var Main;
 (function (Main) {
-    function Success(retorno) {
-        console.clear();
-        console.log(retorno);
-    }
-    function Fail(retorno) {
-        console.clear();
-        console.log(retorno);
-    }
     function AgregarEmpleados() {
         if (AdministrarValidaciones()) {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.open("POST", "./administracion.php", true);
+            var xmlhttp_1 = new XMLHttpRequest();
+            xmlhttp_1.open("POST", "./administracion.php", true);
             var formD = new FormData();
-            xmlhttp.setRequestHeader("enctype", "multipart/form-data");
+            xmlhttp_1.setRequestHeader("enctype", "multipart/form-data");
             if (document.getElementById("hdnModificar")) {
                 var modificar = document.getElementById("hdnModificar").value;
                 formD.append('dniI', modificar);
@@ -95,8 +35,14 @@ var Main;
             formD.append('legajo', legajo);
             formD.append('radTurno', turno);
             formD.append('foto', foto.files[0]);
-            xmlhttp.send(formD);
-            setTimeout(Main.ActualizarEmpleados, 1000);
+            xmlhttp_1.send(formD);
+            xmlhttp_1.onreadystatechange = function () {
+                if (xmlhttp_1.readyState === 4) {
+                    if (xmlhttp_1.status === 200) {
+                        setTimeout(Main.ActualizarEmpleados, 500);
+                    }
+                }
+            };
         }
     }
     Main.AgregarEmpleados = AgregarEmpleados;
@@ -170,7 +116,6 @@ var Main;
         xmlhttp.onreadystatechange = function () {
             if (document.getElementById("IndexAjax")) {
                 document.getElementById("IndexAjax").innerHTML = xmlhttp.responseText;
-                console.log(xmlhttp.responseText);
             }
         };
         return false;
