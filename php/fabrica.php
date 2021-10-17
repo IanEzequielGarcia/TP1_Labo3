@@ -44,7 +44,7 @@ class Fabrica implements Iarchivo
             if(file_exists(trim($empleado->GetFoto())))
             { unlink(trim($empleado->GetFoto()));}
             unset($this->empleados[array_search($empleado,$this->empleados)]);
-            $this->GuardarEnArchivo("./archivos/empleados.txt");
+            $this->GuardarEnArchivo("../archivos/empleados.txt");
             return true;
         }
         else

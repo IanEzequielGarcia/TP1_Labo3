@@ -21,6 +21,6 @@
     if($banderaEncontrado==0)
     {
         echo "<br>Ese empleado no se encuentra en la fabrica<br>";
-        echo '<a href="../login.html">Al login</a>';
+        echo '<a href="../php/login.html">Al login</a>';
     }
 ?>

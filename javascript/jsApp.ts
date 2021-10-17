@@ -57,14 +57,17 @@ export namespace Main{
             {
                 if (xmlhttp.status === 200)
                 {
-                    (<HTMLInputElement> document.getElementById("IndexAjax")).innerHTML=xmlhttp.responseText;
+                    if(<HTMLInputElement> document.getElementById("IndexAjax"))
+                    {
+                        (<HTMLInputElement> document.getElementById("IndexAjax")).innerHTML=xmlhttp.responseText;
+                    }
                 }
             }
         }
     }
     export function ActualizarEmpleados():void {
         const xmlhttp : XMLHttpRequest = new XMLHttpRequest();
-        xmlhttp.open("GET","./backend/mostrar.php",true);
+        xmlhttp.open("GET","../backend/mostrar.php",true);
         xmlhttp.send();
         xmlhttp.onreadystatechange = () => {
             if (xmlhttp.readyState === 4)
@@ -86,9 +89,16 @@ export namespace Main{
         setTimeout(ActualizarEmpleados,500);
     }
 
-    export function ModificarEmpleados(dni:string):boolean {
+    export function ModificarEmpleados(dni:string,desdeMostrar?:boolean):boolean {
         const xmlhttp : XMLHttpRequest = new XMLHttpRequest();
-        xmlhttp.open("POST", "./index.php", true);
+        let boolRedirect:boolean = false;
+        if(desdeMostrar)
+        {
+            xmlhttp.open("POST", "../php/index.php", true);
+            boolRedirect=true;
+        }else{
+            xmlhttp.open("POST", "./index.php", true);
+        }
         var formD = new FormData();
         formD.append("dniH",dni);
         xmlhttp.send(formD);
@@ -97,6 +107,6 @@ export namespace Main{
         {
             (<HTMLInputElement> document.getElementById("IndexAjax")).innerHTML=xmlhttp.responseText;
         }}
-        return false;
+        return boolRedirect;
     }
 }

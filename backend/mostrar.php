@@ -9,8 +9,8 @@
 
 <?php
     include_once "validarSesion.php";
-    include_once "../fabrica.php";
-    $mifabrica = new Fabrica("mostrar");
+    include_once "../php/fabrica.php";
+    $mifabrica = new Fabrica("mostrar",100);
     $mifabrica->TraerDeArchivo("../archivos/empleados.txt");
 
     echo '<table style="width:40%" align="center">';
@@ -23,7 +23,7 @@
                 echo '<td>'.'<img src="'.$misEmpleados->GetFoto().'" width="90px" height="90px">'."</td>";
                 echo '<td>'.'<a href="#" onclick="Main.EliminarEmpleados('.$misEmpleados->GetDni().')"</a>[Eliminar]'.'</td>';
                 //echo '<td><input type="button" value="Modificar" onclick="AdministrarModificar('.$misEmpleados->GetDni().')"></td>';
-                echo '<td><input type="button" value="Modificar" onclick="Main.ModificarEmpleados('.$misEmpleados->GetDni().')"></td>';
+                echo '<td><input type="button" value="Modificar" onclick="Main.ModificarEmpleados('.$misEmpleados->GetDni().',true)"></td>';
             echo "</td>";
         echo '</tr>';
     }

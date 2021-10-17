@@ -16,8 +16,8 @@
     if(isset($_POST["dniH"]))
     {
         $DNIEmpleado=$_POST["dniH"];
-        $fabrica = new Fabrica("Modificar",50);
-        $fabrica->TraerDeArchivo("./archivos/empleados.txt");
+        $fabrica = new Fabrica("Modificar",100);
+        $fabrica->TraerDeArchivo("../archivos/empleados.txt");
         foreach($fabrica->GetEmpelados() as $empleados)
         {
             if($empleados->GetDni()==$_POST["dniH"])
@@ -48,9 +48,9 @@
     <head>
         <meta charset="utf-8">
         <title id="titulo" value="<?php echo $h4?>"></title>
-        <script src="./javascript/funciones.js"></script>
+        <script src="../javascript/funciones.js"></script>
         <script>var exports = {};</script>
-        <script src="./javascript/jsApp.js"></script>
+        <script src="../javascript/jsApp.js"></script>
     </head>
 
     <body>
@@ -179,9 +179,7 @@
                             <td><input name="radTurno" id="radioN" type="radio" value="noche"></td>
                         </tr>';
                 }
-               
             ?>
-           
             <tr>
                 <td align="center"><input type="file" id="inFoto" name="foto" accept=".png, .jpg, .jpeg, .gif, .bmp" required></td>
                 <td><span style="display: none;" id="dFoto">*</span></td>

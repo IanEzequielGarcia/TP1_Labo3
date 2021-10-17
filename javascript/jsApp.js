@@ -46,32 +46,6 @@ var Main;
         }
     }
     Main.AgregarEmpleados = AgregarEmpleados;
-    function Testear() {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("POST", "./administracion.php", true);
-        var formD = new FormData();
-        xmlhttp.setRequestHeader("enctype", "multipart/form-data");
-        var dni = "1010101";
-        var nombre = "test";
-        var sexo = "H";
-        var legajo = "351";
-        var sueldo = "10000";
-        var apellido = "test2";
-        var foto = document.getElementById("inFoto");
-        var turno = "Mañana";
-        formD.append('apellido', apellido);
-        formD.append('nombre', nombre);
-        formD.append('dni', dni);
-        formD.append('sexo', sexo);
-        formD.append('sueldo', sueldo);
-        formD.append('legajo', legajo);
-        formD.append('legajo', legajo);
-        formD.append('radTurno', turno);
-        formD.append('foto', foto.files[0]);
-        xmlhttp.send(formD);
-        return false;
-    }
-    Main.Testear = Testear;
     function ActualizarIndex() {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("GET", "./index.php", true);
@@ -79,7 +53,9 @@ var Main;
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState === 4) {
                 if (xmlhttp.status === 200) {
-                    document.getElementById("IndexAjax").innerHTML = xmlhttp.responseText;
+                    if (document.getElementById("IndexAjax")) {
+                        document.getElementById("IndexAjax").innerHTML = xmlhttp.responseText;
+                    }
                 }
             }
         };
@@ -87,7 +63,7 @@ var Main;
     Main.ActualizarIndex = ActualizarIndex;
     function ActualizarEmpleados() {
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", "./backend/mostrar.php", true);
+        xmlhttp.open("GET", "../backend/mostrar.php", true);
         xmlhttp.send();
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState === 4) {
@@ -107,9 +83,16 @@ var Main;
         setTimeout(ActualizarEmpleados, 500);
     }
     Main.EliminarEmpleados = EliminarEmpleados;
-    function ModificarEmpleados(dni) {
+    function ModificarEmpleados(dni, desdeMostrar) {
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("POST", "./index.php", true);
+        var boolRedirect = false;
+        if (desdeMostrar) {
+            xmlhttp.open("POST", "../php/index.php", true);
+            boolRedirect = true;
+        }
+        else {
+            xmlhttp.open("POST", "./index.php", true);
+        }
         var formD = new FormData();
         formD.append("dniH", dni);
         xmlhttp.send(formD);
@@ -118,7 +101,7 @@ var Main;
                 document.getElementById("IndexAjax").innerHTML = xmlhttp.responseText;
             }
         };
-        return false;
+        return boolRedirect;
     }
     Main.ModificarEmpleados = ModificarEmpleados;
 })(Main = exports.Main || (exports.Main = {}));
