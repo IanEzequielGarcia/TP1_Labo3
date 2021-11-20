@@ -83,16 +83,9 @@ var Main;
         setTimeout(ActualizarEmpleados, 500);
     }
     Main.EliminarEmpleados = EliminarEmpleados;
-    function ModificarEmpleados(dni, desdeMostrar) {
+    function ModificarEmpleados(dni) {
         var xmlhttp = new XMLHttpRequest();
-        var boolRedirect = false;
-        if (desdeMostrar) {
-            xmlhttp.open("POST", "../php/index.php", true);
-            boolRedirect = true;
-        }
-        else {
-            xmlhttp.open("POST", "./index.php", true);
-        }
+        xmlhttp.open("POST", "./index.php", true);
         var formD = new FormData();
         formD.append("dniH", dni);
         xmlhttp.send(formD);
@@ -101,7 +94,14 @@ var Main;
                 document.getElementById("IndexAjax").innerHTML = xmlhttp.responseText;
             }
         };
-        return boolRedirect;
+        return false;
     }
     Main.ModificarEmpleados = ModificarEmpleados;
+    function TraerPdf(dni) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("get", "../backend/mostrarPdf.php", true);
+        xmlhttp.send();
+        return false;
+    }
+    Main.TraerPdf = TraerPdf;
 })(Main = exports.Main || (exports.Main = {}));

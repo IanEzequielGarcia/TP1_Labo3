@@ -68,8 +68,10 @@
                 <?php
                 if($dni=="")
                 {
-                echo '<td><input type="number" min="1000000" max="55000000" id="inDNI" name="dni" required><span style="display: none;" id="dDni">*</span></td>';
-                }else{
+                    echo '<td><input type="number" min="1000000" max="55000000" id="inDNI" name="dni" required><span style="display: none;" id="dDni">*</span></td>';
+                }
+                else
+                {
                     echo '<td><input type="number" min="1000000" max="55000000" id="inDNI" name="dni" required readonly value="'.$dni.'"><span style="display: none;" id="dDni">*</span></td>';
                 }
                 ?> 

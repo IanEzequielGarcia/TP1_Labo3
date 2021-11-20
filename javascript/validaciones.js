@@ -24,7 +24,7 @@ function AdministrarValidaciones() {
     AdministrarSpanError("dNombre", ValidarCamposVacios(nombre));
     AdministrarSpanError("dDni", ValidarCamposVacios(dni) && ValidarRangoNumerico(parseInt(dni), 1000000, 55000000));
     AdministrarSpanError("dLegajo", ValidarCamposVacios(legajo) && ValidarRangoNumerico(parseInt(legajo), 100, 550));
-    AdministrarSpanError("dSueldo", ValidarCamposVacios(sueldo) && ValidarRangoNumerico(parseInt(sueldo), 1, ObtenerSueldoMaximo(sueldo)));
+    AdministrarSpanError("dSueldo", ValidarCamposVacios(sueldo) && ValidarRangoNumerico(parseInt(sueldo), 1, ObtenerSueldoMaximo(ObtenerTurnoSeleccionado())));
     AdministrarSpanError("dSexo", ValidarCombo(sexo.toString(), "Seleccione"));
     AdministrarSpanError("dTurno", ValidarCombo(ObtenerTurnoSeleccionado(), "ninguno"));
     if (VerificarValidaciones()) {
@@ -85,10 +85,10 @@ function ObtenerTurnoSeleccionado() {
     }
 }
 function ObtenerSueldoMaximo(str) {
-    if (str === "Mañana") {
+    if (str === "mañana") {
         return 20000;
     }
-    else if (str === "Tarde") {
+    else if (str === "tarde") {
         return 18500;
     }
     else {

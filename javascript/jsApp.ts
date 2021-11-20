@@ -89,16 +89,9 @@ export namespace Main{
         setTimeout(ActualizarEmpleados,500);
     }
 
-    export function ModificarEmpleados(dni:string,desdeMostrar?:boolean):boolean {
+    export function ModificarEmpleados(dni:string):boolean {
         const xmlhttp : XMLHttpRequest = new XMLHttpRequest();
-        let boolRedirect:boolean = false;
-        if(desdeMostrar)
-        {
-            xmlhttp.open("POST", "../php/index.php", true);
-            boolRedirect=true;
-        }else{
-            xmlhttp.open("POST", "./index.php", true);
-        }
+        xmlhttp.open("POST", "./index.php", true);
         var formD = new FormData();
         formD.append("dniH",dni);
         xmlhttp.send(formD);
@@ -107,6 +100,12 @@ export namespace Main{
         {
             (<HTMLInputElement> document.getElementById("IndexAjax")).innerHTML=xmlhttp.responseText;
         }}
-        return boolRedirect;
+        return false;
+    }
+    export function TraerPdf(dni:string):boolean {
+        const xmlhttp : XMLHttpRequest = new XMLHttpRequest();
+        xmlhttp.open("get", "../backend/mostrarPdf.php", true);
+        xmlhttp.send();
+        return false;
     }
 }

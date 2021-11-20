@@ -19,11 +19,14 @@
                 width: 40%;
                 height: 100%;
             }
+            #MostrarAjax{
+                width: 60%;
+            }
         </style>
     </head>
     <body>
-        <h2>Ian Garcia</h2>
-        <table style='border:1px solid black;' class="tabla">
+        <h2 style="padding-left: 10em;">Ian Garcia</h2>
+        <table class="tabla">
             <tr style="border: 1px solid black">
                 <td id="tdIndex" style="border: 1px solid black">
                     <div id="IndexAjax">
@@ -34,8 +37,9 @@
                     </div>
                 </td>
             </tr>
-            <td style="border:1px solid black;">
+            <td style="border: 1px solid black,">
                 <A href="./cerrarSesion.php">Cerrar Sesión</A>
+                <a href="/Ejercicios/TPNeiner/backend/mostrarPdf.php"><input type="button" value="PDF"></td><a>
             </td>
         </table>
     </body>
